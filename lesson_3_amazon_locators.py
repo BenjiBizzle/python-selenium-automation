@@ -45,7 +45,8 @@ driver.find_element(By.CSS_SELECTOR, "#continue")
 driver.find_element(By.CSS_SELECTOR, "[href*='con']")
 
 # Privacy Notice locator
-driver.find_element(By.CSS_SELECTOR, )
+driver.find_element(By.CSS_SELECTOR, '')
 
 #Sign in link locator
 driver.find_element(By.CSS_SELECTOR, ".a-link-emphasis")
+
