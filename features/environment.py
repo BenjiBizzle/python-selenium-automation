@@ -1,18 +1,25 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.wait import WebDriverWait
+
+from app.application import Application
 
 
 def browser_init(context):
     """
     :param context: Behave context
     """
-    driver_path = ChromeDriverManager().install()
+    # driver_path = ChromeDriverManager().install()
+    driver_path = './chromedriver'
     service = Service(driver_path)
     context.driver = webdriver.Chrome(service=service)
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
+    context.wait = WebDriverWait(context.driver, 15)
+
+    context.app = Application(context.driver)
 
 
 def before_scenario(context, scenario):
