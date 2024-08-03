@@ -15,7 +15,7 @@ PRODUCT_IMG = (By.CSS_SELECTOR, 'img')
 def click_add_to_cart(context):
     context.driver.find_element(*ADD_TO_CART_BTN).click()  # always clicks on 1st Add to cart btn
     # context.driver.find_elements(By.CSS_SELECTOR, "[id*='addToCartButton']")[0].click()
-    context.driver.wait.until(EC.visibility_of_element_located(SIDE_NAV_PRODUCT_NAME))
+    context.wait.until(EC.visibility_of_element_located(SIDE_NAV_PRODUCT_NAME))
 
 
 @when('Store product name')
@@ -32,24 +32,23 @@ def side_nav_click_add_to_cart(context):
 
 @then('Verify search results shown for {expected_product}')
 def verify_search_results(context, expected_product):
-    context.app.search_results_page.verify_text()
+    context.app.search_results_page.verify_search_results(expected_product)
 
 
 @then('Verify correct search results URL opens for {expected_product}')
 def verify_url(context, expected_product):
-    context.app.search_results_page.verify_url()
+    context.app.search_results_page.verify_product_in_url(expected_product)
 
-    @then('Verify that every product has a name and an image')
-    def verify_products_name_img(context):
-        # To see ALL listings (comment out if you only check top ones):
-        context.driver.execute_script("window.scrollBy(0,2000)", "")
-        sleep(4)
-        context.driver.execute_script("window.scrollBy(0,2000)", "")
 
-        all_products = context.driver.find_elements(*LISTINGS)  # [WebEl1, WebEl2, WebEl3, WebEl4]
-
-        for product in all_products:
-            title = product.find_element(*PRODUCT_TITLE).text
-            assert title, 'Product title not shown'
-            print(title)
-            product.find_element(*PRODUCT_IMG)
+@then('Verify that every product has a name and an image')
+def verify_products_name_img(context):
+    # To see ALL listings (comment out if you only check top ones):
+    context.driver.execute_script("window.scrollBy(0,2000)", "")
+    sleep(4)
+    context.driver.execute_script("window.scrollBy(0,2000)", "")
+    all_products = context.driver.find_elements(*LISTINGS)  # [WebEl1, WebEl2, WebEl3, WebEl4]
+    for product in all_products:
+        title = product.find_element(*PRODUCT_TITLE).text
+        assert title, 'Product title not shown'
+        print(title)
+        product.find_element(*PRODUCT_IMG)
