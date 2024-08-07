@@ -5,7 +5,7 @@ from pages.base_page import Page
 from pages.search_results_page import SearchResultsPage
 from pages.sign_in_page import SignInPage
 from pages.terms_conditions_page import TermsConditionsPage
-
+from pages.help_page import HelpPage
 
 class Application:
     def __init__(self, driver):
@@ -17,3 +17,4 @@ class Application:
         self.main_page = MainPage(driver)
         self.search_results_page = SearchResultsPage(driver)
         self.terms_conditions_page = TermsConditionsPage(driver)
+        self.help_page = HelpPage(driver)
