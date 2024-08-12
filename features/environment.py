@@ -8,6 +8,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 
 from app.application import Application
+from support.logger import logger
+
+# Command to run tests with Allure & Behave:
+# behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/target_search.feature
 
 
 def browser_init(context, scenario_name):
@@ -53,12 +57,12 @@ def browser_init(context, scenario_name):
     # bstack_options = {
     #     "os": "Windows",
     #     "osVersion": "11",
-    #     'browserName': 'edge',
+    #     'browserName': 'Chrome',
     #     'sessionName': scenario_name
     # }
     # options.set_capability('bstack:options', bstack_options)
     # context.driver = webdriver.Remote(command_executor=url, options=options)
-    #
+
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, 10)
